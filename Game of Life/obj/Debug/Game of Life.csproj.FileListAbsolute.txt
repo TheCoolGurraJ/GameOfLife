@@ -1,0 +1,10 @@
+C:\Users\gustav.jonsson12\source\repos\Game of Life\bin\Debug\Game of Life.exe.config
+C:\Users\gustav.jonsson12\source\repos\Game of Life\bin\Debug\Game of Life.exe
+C:\Users\gustav.jonsson12\source\repos\Game of Life\bin\Debug\Game of Life.pdb
+C:\Users\gustav.jonsson12\source\repos\Game of Life\obj\Debug\Game of Life.csprojAssemblyReference.cache
+C:\Users\gustav.jonsson12\source\repos\Game of Life\obj\Debug\Game_of_Life.Form1.resources
+C:\Users\gustav.jonsson12\source\repos\Game of Life\obj\Debug\Game_of_Life.Properties.Resources.resources
+C:\Users\gustav.jonsson12\source\repos\Game of Life\obj\Debug\Game of Life.csproj.GenerateResource.cache
+C:\Users\gustav.jonsson12\source\repos\Game of Life\obj\Debug\Game of Life.csproj.CoreCompileInputs.cache
+C:\Users\gustav.jonsson12\source\repos\Game of Life\obj\Debug\Game of Life.exe
+C:\Users\gustav.jonsson12\source\repos\Game of Life\obj\Debug\Game of Life.pdb
