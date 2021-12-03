@@ -14,7 +14,7 @@ namespace Game_of_Life
     {
         public class Cell
         {
-            public bool IsAlive { get; set; }
+            public virtual bool IsAlive { get; set; }
             public int X; //X-coordinate
             public int Y; //Y-coordinate
             public PictureBox cellbox;
@@ -22,10 +22,16 @@ namespace Game_of_Life
             public List<Cell> neighbours = new List<Cell>();
         }
 
+        public class PotCell : Cell
+        {
+            public override bool IsAlive {get { return false;} }
+            
+        }
+
+
         public Form1()
         {
             InitializeComponent();
-
 
             int coldist = ((Board.Width / 2) / nmrOfcols); //Calculate distance for cell in grid
             int rowdist = (Board.Height / nmrOfrows);
@@ -55,8 +61,10 @@ namespace Game_of_Life
         public static int nmrOfcols = 10; 
         public bool hasClicked = false;
         public List<PictureBox> pclist = new List<PictureBox>();
-        public int[][] GridArr = new int[nmrOfrows][]; 
-        
+        public int[][] GridArr = new int[nmrOfrows][];
+        public List<PotCell> potlist = new List<PotCell>();
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             if(!runSim)
@@ -75,13 +83,111 @@ namespace Game_of_Life
 
             if(run) //Game
             {
-                foreach(Cell c in cells)
+                UpdateBoard(potlist);
+
+                #region Generate Potcells
+                foreach (Cell c in cells)
                 {
                     if(c.X>0 && c.X < nmrOfcols*2)
                     {
+                        PotCell left = new PotCell()
+                        {
+                            X = c.X - 1,
+                            Y = c.Y
+                        };
 
+                        potlist.Add(left);
+
+                        PotCell right = new PotCell()
+                        {
+                            X = c.X + 1,
+                            Y = c.Y
+                        };
+
+                        potlist.Add(right);
                     }
 
+                    if(c.Y > 0 && c.Y < nmrOfrows)
+                    {
+                        PotCell up = new PotCell()
+                        {
+                            X = c.X,
+                            Y = c.Y - 1
+                        };
+
+                        potlist.Add(up);
+
+                        PotCell down = new PotCell()
+                        {
+                            X = c.X,
+                            Y = c.Y +1
+                        };
+
+                        potlist.Add(down);
+                    }
+
+                    if (c.Y > 0 && c.Y < nmrOfrows && c.X > 0 && c.X < nmrOfcols * 2)
+                    {
+                        PotCell upleft = new PotCell()
+                        {
+                            X = c.X - 1,
+                            Y = c.Y - 1
+                        };
+
+                        potlist.Add(upleft);
+
+                        PotCell downleft = new PotCell()
+                        {
+                            X = c.X - 1,
+                            Y = c.Y + 1
+                        };
+
+                        potlist.Add(downleft);
+
+                        PotCell upright = new PotCell()
+                        {
+                            X = c.X + 1,
+                            Y = c.Y - 1
+                        };
+
+                        potlist.Add(upright);
+
+                        PotCell downright = new PotCell()
+                        {
+                            X = c.X + 1,
+                            Y = c.Y + 1
+                        };
+
+                        potlist.Add(downright); //fix this shit
+                    }
+                }
+                #endregion
+
+                UpdateBoard(potlist);
+            }
+        }
+
+        private void UpdateBoard(List<PotCell> potlist)
+        {
+            for (int i = 0; i < potlist.Count; i++)
+            {
+                foreach (Cell c in cells)
+                {
+                    if (potlist[i].X == c.X && potlist[i].Y == c.Y)
+                    {
+                        potlist.RemoveAt(i);
+                    }
+                }
+            }
+
+            for (int i = 0; i < potlist.Count; i++)
+            {
+                for (int k = 0; k < potlist.Count; k++)
+                {
+                    if (potlist[i].X == potlist[k].X && potlist[i].Y == potlist[k].Y && potlist[i] != potlist[k])
+                    {
+                        potlist.RemoveAt(i);
+                    }
                 }
             }
         }
